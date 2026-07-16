@@ -6,155 +6,105 @@
     <title>เค้าขอโทษนะเตง... 🥺</title>
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Kanit:wght@300&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --pink-soft: #ffcad4;
-            --pink-deep: #ff4d6d;
-            --peach: #fbc4ab;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Itim', cursive;
         }
-
         body {
             background-color: #fff0f3;
-            background-image: radial-gradient(#ffcad4 1px, transparent 1px);
-            background-size: 20px 20px;
+            font-family: 'Itim', cursive;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            touch-action: manipulation;
+            padding: 20px;
         }
-
-        /* หัวใจลอยๆ หลังหน้าจอ */
-        .floating-heart {
-            position: fixed;
-            color: #ffb3c1;
-            font-size: 20px;
-            pointer-events: none;
-            z-index: -1;
-            animation: float Up 4s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
             padding: 40px 30px;
-            border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.15);
             text-align: center;
-            max-width: 450px;
-            width: 90%;
-            border: 5px solid #ffcad4;
-            position: relative;
+            max-width: 400px;
+            width: 100%;
+            border: 4px solid #ffcad4;
         }
-
-        .bear-emoji {
-            font-size: 80px;
-            margin-bottom: 10px;
+        .emoji {
+            font-size: 70px;
+            margin-bottom: 15px;
             display: block;
         }
-
         h1 {
             color: #ff4d6d;
             font-size: 2.2rem;
             margin-bottom: 15px;
         }
-
         p {
             color: #590d22;
             font-size: 1.3rem;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 30px;
         }
-
         .btn-group {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             gap: 15px;
-            flex-wrap: wrap;
-            min-height: 150px;
-            align-items: center;
         }
-
         button {
-            padding: 15px 35px;
+            padding: 15px;
             font-size: 1.3rem;
             border: none;
-            border-radius: 30px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            transition: transform 0.2s;
         }
-
+        button:active {
+            transform: scale(0.98);
+        }
         #yes-btn {
             background: linear-gradient(to right, #ff4d6d, #ff758f);
             color: white;
-            z-index: 5;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
         }
-
-        #yes-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
-        }
-
         #no-btn {
             background-color: #f0f0f0;
-            color: #888;
-            position: relative;
-            z-index: 10;
+            color: #777777;
         }
-
-        /* หน้าจอสำเร็จ */
         #success-section {
             display: none;
-            animation: fadeIn 0.8s ease;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         .special-msg {
             font-family: 'Kanit', sans-serif;
-            font-size: 1.1rem !important;
+            font-size: 1.1rem;
             color: #ff4d6d;
             background: #fff0f3;
             padding: 20px;
             border-radius: 20px;
             margin-top: 15px;
             border: 2px dashed #ffcad4;
-            line-height: 1.8 !important;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-card">
+    <div class="container">
         <div id="ask-section">
-            <span class="bear-emoji">🧸</span>
+            <span class="emoji">🧸</span>
             <h1>เทอจ๋าา...</h1>
             <p>เค้าขอโทษน้าาา ดีกันนะคนดี<br>หายโกรธเค้านะคะ 🥺💖</p>
             
             <div class="btn-group">
                 <button id="yes-btn" onclick="forgive()">ให้อภัย</button>
-                <button id="no-btn" onmouseover="escapeBtn()" ontouchstart="escapeBtn()">ไม่ให้อภัย</button>
+                <button id="no-btn" onclick="notForgive()">ไม่ให้อภัย</button>
             </div>
         </div>
 
         <div id="success-section">
-            <span class="bear-emoji">💖🥰✨</span>
+            <span class="emoji">💖🥰✨</span>
             <h1>ขอบคุณนะอ้วนรร</h1>
             <div class="special-msg">
                 เค้าจะปรับปรุงตัวให้ดีขึ้นกว่านี้นะคะ<br>
@@ -167,72 +117,14 @@
     </div>
 
     <script>
-        // สร้างหัวใจลอยพื้นหลัง
-        function createBackgroundHearts() {
-            const hearts = ['❤️', '💖', '✨', '☁️', '🧸'];
-            const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
-            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 4000);
-        }
-        setInterval(createBackgroundHearts, 300);
-
-        const noBtn = document.getElementById('no-btn');
-        const askSection = document.getElementById('ask-section');
-        const successSection = document.getElementById('success-section');
-
-        // ฟังก์ชันปุ่มหนี (รองรับทั้งนิ้วและเมาส์)
-        function escapeBtn() {
-            const maxWidth = window.innerWidth - noBtn.offsetWidth - 50;
-            const maxHeight = window.innerHeight - noBtn.offsetHeight - 50;
-
-            const randomX = Math.max(20, Math.floor(Math.random() * maxWidth));
-            const randomY = Math.max(20, Math.floor(Math.random() * maxHeight));
-
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
-        }
-
-        // ฟังก์ชันยอมให้อภัย
         function forgive() {
-            askSection.style.display = 'none';
-            successSection.style.display = 'block';
-            
-            // พลุหัวใจกระจาย
-            for(let i=0; i<50; i++) {
-                setTimeout(createExplosionHeart, i * 20);
-            }
+            document.getElementById('ask-section').style.display = 'none';
+            document.getElementById('success-section').style.display = 'block';
         }
 
-        function createExplosionHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
-            heart.style.left = '50%';
-            heart.style.top = '50%';
-            heart.style.fontSize = '25px';
-            heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '100';
-            document.body.appendChild(heart);
-
-            const destinationX = (Math.random() - 0.5) * window.innerWidth;
-            const destinationY = (Math.random() - 0.5) * window.innerHeight;
-
-            const animation = heart.animate([
-                { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                { transform: `translate(${destinationX}px, ${destinationY}px) scale(0)`, opacity: 0 }
-            ], {
-                duration: 1000 + Math.random() * 1000,
-                easing: 'cubic-bezier(0, .9, .57, 1)'
-            });
-
-            animation.onfinish = () => heart.remove();
+        function notForgive() {
+            alert('งื้อออ ให้อภัยเค้าเถอะนะเทอ เค้าสำนึกผิดแล้วจริงๆ นะคะ 🥺❤️');
         }
     </script>
 </body>
 </html>
-
