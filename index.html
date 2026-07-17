@@ -1,204 +1,405 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เค้าขอโทษนะเตง... 🥺</title>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Kanit:wght@300&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #fff0f3;
-            font-family: 'Itim', cursive;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            background-image: radial-gradient(#ffcad4 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        .container {
-            background: #ffffff;
-            padding: 40px 30px;
-            border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            text-align: center;
-            max-width: 420px;
-            width: 100%;
-            border: 5px solid #ffcad4;
-            position: relative;
-        }
-        .main-img {
-            width: 140px;
-            height: 140px;
-            margin-bottom: 15px;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.05); }
-        }
-        h1 {
-            color: #ff4d6d;
-            font-size: 2.3rem;
-            margin-bottom: 15px;
-        }
-        p {
-            color: #590d22;
-            font-size: 1.35rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        button {
-            padding: 16px;
-            font-size: 1.35rem;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: all 0.2s;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
-        }
-        button:active {
-            transform: scale(0.95);
-        }
-        #yes-btn1 {
-            background: linear-gradient(to right, #ff4d6d, #ff758f);
-            color: white;
-        }
-        #yes-btn2 {
-            background: linear-gradient(to right, #ff758f, #ff8fa3);
-            color: white;
-        }
-        
-        /* หน้าเปิดกล่องดนตรี */
-        #music-intro-section {
-            display: block;
-        }
-        /* หน้าหลักและหน้าสำเร็จ ซ่อนไว้ก่อน */
-        #ask-section, #success-section {
-            display: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ถึงพี่แพน ❤️</title>
 
-        .gift-box {
-            font-size: 80px;
-            cursor: pointer;
-            animation: pulse 1.5s infinite;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        .special-msg {
-            font-family: 'Kanit', sans-serif;
-            font-size: 1.15rem;
-            color: #ff4d6d;
-            background: #fff0f3;
-            padding: 25px 20px;
-            border-radius: 25px;
-            margin-top: 15px;
-            border: 2px dashed #ff4d6d;
-            line-height: 1.8;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
-        }
-        
-        /* ซ่อนเครื่องเล่นเพลง YouTube ไว้ข้างหลัง */
-        #youtube-player {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
-    </style>
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:"Tahoma",sans-serif;
+    background:linear-gradient(135deg,#ff8dc7,#a78bfa,#60a5fa);
+    color:white;
+}
+
+.page{
+    width:100%;
+    height:100vh;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.page.active{
+    display:flex;
+}
+
+.box{
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(15px);
+    padding:40px;
+    border-radius:35px;
+    max-width:600px;
+    box-shadow:0 0 50px rgba(255,255,255,.4);
+}
+
+h1{
+    font-size:45px;
+    margin-bottom:20px;
+    text-shadow:0 0 20px pink;
+}
+
+p{
+    font-size:22px;
+    line-height:1.8;
+}
+
+#timer{
+    margin:20px;
+    font-size:25px;
+    font-weight:bold;
+}
+
+button{
+    margin:15px;
+    padding:15px 35px;
+    border:none;
+    border-radius:50px;
+    background:#ff4fa3;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 0 20px #ff4fa3;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+
+/* หัวใจ */
+
+.heart{
+    position:absolute;
+    bottom:-50px;
+    animation:up 8s linear infinite;
+}
+
+@keyframes up{
+    to{
+        transform:translateY(-110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+
+/* ดอกไม้ */
+
+.flower{
+    position:absolute;
+    top:-30px;
+    animation:fall 7s linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+    }
+}
+
+
+.big{
+    font-size:65px;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.2);
+    }
+}
+
+</style>
 </head>
+
+
 <body>
 
-    <div class="container">
-        <!-- ซ่อนวิดีโอ YouTube เพลงง้อไว้ (จะเล่นเสียงอย่างเดียว) -->
-        <div id="youtube-player"></div>
 
-        <!-- หน้าที่ 1: หน้าเปิดกล่องของขวัญเพื่อเปิดเพลง -->
-        <div id="music-intro-section">
-            <div class="gift-box" onclick="startEverything()">🎁</div>
-            <h1>มีของขวัญมาให้เทอ...</h1>
-            <p>จิ้มที่กล่องของขวัญชิ้นนี้<br>เพื่อเปิดเสียงเพลงก่อนน้าาา 🎵</p>
-        </div>
+<!-- หน้า 1 -->
 
-        <!-- หน้าที่ 2: หน้าง้อ -->
-        <div id="ask-section">
-            <img class="main-img" src="https://media.tenor.com/2t13L7eA5d8AAAAi/mochi-peach.gif" alt="ง้อ">
-            <h1>เทอจ๋าา...</h1>
-            <p>เค้าขอโทษน้าาา ดีกันนะคนดี<br>หายโกรธเค้านะคะ 🥺💖</p>
-            
-            <div class="btn-group">
-                <!-- เปลี่ยนเป็นปุ่มให้อภัยทั้งคู่ เลือกกดอันไหนก็ได้ผลเหมือนกัน -->
-                <button id="yes-btn1" onclick="forgive()">ให้อภัย</button>
-                <button id="yes-btn2" onclick="forgive()">ให้อภัยมากๆ ❤️</button>
-            </div>
-        </div>
+<div class="page active">
 
-        <!-- หน้าที่ 3: หน้าหลังกดให้อภัย -->
-        <div id="success-section">
-            <img class="main-img" src="https://media.tenor.com/z7G0z8Zl3vQAAAAi/love-cute.gif" alt="รัก">
-            <h1>ขอบคุณนะอ้วนรร</h1>
-            <div class="special-msg">
-                เค้าจะปรับปรุงตัวให้ดีขึ้นกว่านี้นะคะ<br>
-                รักพี่แพนนมากๆน้าาาา ❤️<br>
-                <small style="color: #ff8fa3; display: block; margin-top: 12px; font-weight: bold;">
-                    (เว็ปนี้เค้านั่งทำตั้งนานเพราะต้องเขียนโค้ดเลยนะ!)
-                </small>
-            </div>
-        </div>
-    </div>
+<div class="box">
 
-    <!-- โหลดสคริปต์สำหรับควบคุม YouTube -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script>
-        let player;
-        const videoId = 'dYvA9t2lGco'; // ID เพลงง้อจาก YouTube
+<h1>❤️ ถึงพี่แพน ❤️</h1>
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'loop': 1,
-                    'playlist': videoId
-                }
-            });
-        }
+<p>
+เค้ามีอะไรอยากให้เท๊อดู<br>
+พร้อมยังงงง 💕
+</p>
 
-        function startEverything() {
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
-            }
-            document.getElementById('music-intro-section').style.display = 'none';
-            document.getElementById('ask-section').style.display = 'block';
-        }
+<button onclick="nextPage()">
+เปิดเซอร์ไพรส์ 💌
+</button>
 
-        function forgive() {
-            document.getElementById('ask-section').style.display = 'none';
-            document.getElementById('success-section').style.display = 'block';
-        }
-    </script>
+</div>
+
+</div>
+
+
+
+<!-- หน้า 2 -->
+
+<div class="page">
+
+<div class="box">
+
+<h1>⏳ เวลาของเรา</h1>
+
+<p>
+เค้ากับพี่แพนคบกันมาแล้ว
+</p>
+
+<div id="timer"></div>
+
+<button onclick="nextPage()">
+ไปต่อ ❤️
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- หน้า 3 -->
+
+<div class="page">
+
+<div class="box">
+
+<h1>💌 ถึงพี่แพน</h1>
+
+<p>
+ขอบคุณที่เข้ามาเป็นความสุขของเค้านะ<br><br>
+
+ทุกวันที่มีเท๊ออยู่<br>
+มันเป็นวันที่พิเศษมากเลย<br><br>
+
+<strong>
+เค้ารักเท๊อออออ ❤️
+</strong>
+
+</p>
+
+
+<button onclick="nextPage()">
+กดอีกครั้ง 💖
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- หน้า 4 -->
+
+<div class="page">
+
+<div class="box">
+
+<div class="big">
+❤️
+</div>
+
+
+<h1>
+พี่แพน
+</h1>
+
+
+<p>
+เค้าจะอยู่ข้างเท๊อ<br>
+และรักเท๊อไปนาน ๆ นะ 💕
+
+</p>
+
+
+<button onclick="firework()">
+เซอร์ไพรส์สุดท้าย 🎆
+</button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+let pages=document.querySelectorAll(".page");
+
+let current=0;
+
+
+function nextPage(){
+
+pages[current].classList.remove("active");
+
+current++;
+
+if(current>=pages.length)
+current=pages.length-1;
+
+
+pages[current].classList.add("active");
+
+}
+
+
+
+
+// เวลาเริ่มคบ
+
+let start=new Date("2026-04-15T00:00:00");
+
+
+function count(){
+
+let now=new Date();
+
+let diff=now-start;
+
+
+let d=Math.floor(diff/86400000);
+
+let h=Math.floor(diff/3600000)%24;
+
+let m=Math.floor(diff/60000)%60;
+
+let s=Math.floor(diff/1000)%60;
+
+
+document.getElementById("timer").innerHTML=
+`
+${d} วัน<br>
+${h} ชั่วโมง
+${m} นาที
+${s} วินาที
+`;
+
+}
+
+
+setInterval(count,1000);
+count();
+
+
+
+
+// สร้างหัวใจ
+
+function createHeart(){
+
+let h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"%";
+
+h.style.fontSize=
+20+Math.random()*40+"px";
+
+h.style.animationDuration=
+4+Math.random()*5+"s";
+
+
+document.body.appendChild(h);
+
+
+setTimeout(()=>{
+h.remove()
+},8000);
+
+}
+
+setInterval(createHeart,300);
+
+
+
+// ดอกไม้
+
+function flower(){
+
+let f=document.createElement("div");
+
+f.className="flower";
+
+f.innerHTML="🌸";
+
+f.style.left=Math.random()*100+"%";
+
+f.style.animationDuration=
+5+Math.random()*5+"s";
+
+
+document.body.appendChild(f);
+
+
+setTimeout(()=>{
+f.remove()
+},9000);
+
+}
+
+setInterval(flower,500);
+
+
+
+// เอฟเฟกต์สุดท้าย
+
+function firework(){
+
+for(let i=0;i<30;i++){
+
+let h=document.createElement("div");
+
+h.innerHTML="💖";
+
+h.style.position="absolute";
+
+h.style.left="50%";
+
+h.style.top="50%";
+
+h.style.fontSize="40px";
+
+h.style.transform=
+`translate(${Math.random()*500-250}px,
+${Math.random()*500-250}px)`;
+
+h.style.transition="2s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{
+h.style.opacity=0;
+},100);
+
+setTimeout(()=>{
+h.remove();
+},2000);
+
+}
+
+}
+
+</script>
+
 </body>
 </html>
