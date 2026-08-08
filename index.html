@@ -3,403 +3,408 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ถึงพี่แพน ❤️</title>
-
+<title>กระดานให้คะแนนทีม</title>
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Sarabun:wght@400;500;600&display=swap');
 
-body{
-    height:100vh;
-    overflow:hidden;
-    font-family:"Tahoma",sans-serif;
-    background:linear-gradient(135deg,#ff8dc7,#a78bfa,#60a5fa);
-    color:white;
-}
+  :root{
+    --bg-deep: #0a0f1c;
+    --bg: #0e1626;
+    --panel: #182238;
+    --panel-2: #1e2a45;
+    --line: #2a3853;
+    --gold: #e8b34c;
+    --gold-dim: #a67c2f;
+    --off: #4a5a7a;
+    --off-fill: #26314a;
+    --text: #eef1f6;
+    --text-dim: #90a0bf;
+    --danger: #d9634f;
+  }
 
-.page{
-    width:100%;
-    height:100vh;
-    display:none;
-    justify-content:center;
-    align-items:center;
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(ellipse at top, #142038 0%, var(--bg-deep) 70%);
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    min-height: 100vh;
+    padding: 24px 20px 60px;
+  }
+
+  .wrap{ max-width: 100%; margin: 0 auto; }
+
+  header{
     text-align:center;
-    padding:20px;
-}
+    margin-bottom: 22px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing: 0.35em;
+    font-size: clamp(10px, 1vw, 13px);
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  h1{
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: clamp(26px, 3.4vw, 46px);
+    letter-spacing: 0.02em;
+    margin: 0;
+    color: #fff;
+  }
 
-.page.active{
-    display:flex;
-}
+  .add-panel{
+    max-width: 620px;
+    margin: 20px auto 26px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    gap: 10px;
+  }
+  .add-panel input{
+    flex: 1;
+    background: var(--bg-deep);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .add-panel input:focus{ border-color: var(--gold); }
+  .add-panel input::placeholder{ color: var(--text-dim); }
 
-.box{
-    background:rgba(255,255,255,.18);
-    backdrop-filter:blur(15px);
-    padding:40px;
-    border-radius:35px;
-    max-width:600px;
-    box-shadow:0 0 50px rgba(255,255,255,.4);
-}
+  .add-panel button{
+    background: var(--gold);
+    color: #1a1306;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: filter .15s, transform .1s;
+    white-space: nowrap;
+  }
+  .add-panel button:hover{ filter: brightness(1.1); }
+  .add-panel button:active{ transform: scale(0.97); }
 
-h1{
-    font-size:45px;
-    margin-bottom:20px;
-    text-shadow:0 0 20px pink;
-}
+  .board-scroll{
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
 
-p{
-    font-size:22px;
-    line-height:1.8;
-}
+  table.board{
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1100px;
+  }
 
-#timer{
-    margin:20px;
-    font-size:25px;
-    font-weight:bold;
-}
+  .board thead th{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(14px, 1.3vw, 20px);
+    color: var(--gold);
+    background: var(--panel-2);
+    border-bottom: 2px solid var(--gold-dim);
+    padding: 14px 4px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+  }
+  .board thead th.team-col{
+    text-align: left;
+    padding-left: 20px;
+    min-width: 220px;
+  }
+  .board thead th.total-col{
+    min-width: 110px;
+  }
+  .board thead th.del-col{
+    min-width: 46px;
+  }
 
-button{
-    margin:15px;
-    padding:15px 35px;
-    border:none;
-    border-radius:50px;
-    background:#ff4fa3;
-    color:white;
-    font-size:20px;
-    cursor:pointer;
-    box-shadow:0 0 20px #ff4fa3;
-}
+  .board tbody tr{
+    border-bottom: 1px solid var(--line);
+  }
+  .board tbody tr:last-child{ border-bottom: none; }
+  .board tbody tr:hover{ background: rgba(232,179,76,0.04); }
 
-button:hover{
-    transform:scale(1.1);
-}
+  .team-cell{
+    padding: 10px 20px;
+  }
+  .team-name{
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(18px, 1.8vw, 26px);
+    font-weight: 600;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 4px 2px;
+    border-bottom: 1px dashed transparent;
+  }
+  .team-name:focus{ border-bottom: 1px dashed var(--gold); }
 
+  .chk-cell{
+    text-align: center;
+    padding: 8px 4px;
+  }
+  .chk-box{
+    width: clamp(30px, 2.6vw, 44px);
+    height: clamp(30px, 2.6vw, 44px);
+    margin: 0 auto;
+    border-radius: 8px;
+    border: 2px solid var(--off);
+    background: var(--off-fill);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(16px, 1.6vw, 24px);
+    color: transparent;
+    transition: all .12s ease;
+    user-select: none;
+  }
+  .chk-box.on{
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #1a1306;
+    font-weight: 700;
+  }
+  .chk-box:hover{ border-color: var(--gold-dim); }
 
-/* หัวใจ */
+  .total-cell{
+    text-align: center;
+    padding: 8px 4px;
+  }
+  .score-num{
+    display: inline-block;
+    min-width: 2.4em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(22px, 2.2vw, 34px);
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--bg-deep);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 4px 10px;
+  }
 
-.heart{
-    position:absolute;
-    bottom:-50px;
-    animation:up 8s linear infinite;
-}
+  .del-cell{
+    text-align: center;
+    padding: 8px;
+  }
+  .remove-btn{
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: border-color .15s, color .15s;
+  }
+  .remove-btn:hover{ border-color: var(--danger); color: var(--danger); }
 
-@keyframes up{
-    to{
-        transform:translateY(-110vh) rotate(360deg);
-        opacity:0;
-    }
-}
+  .empty-row td{
+    text-align: center;
+    color: var(--text-dim);
+    padding: 40px 20px;
+    font-size: 15px;
+  }
 
-
-/* ดอกไม้ */
-
-.flower{
-    position:absolute;
-    top:-30px;
-    animation:fall 7s linear infinite;
-}
-
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(720deg);
-    }
-}
-
-
-.big{
-    font-size:65px;
-    animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-    50%{
-        transform:scale(1.2);
-    }
-}
-
+  .summary{
+    max-width: 1100px;
+    margin: 22px auto 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(12px, 1vw, 15px);
+    letter-spacing: 0.05em;
+  }
 </style>
 </head>
-
-
 <body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">15 ข้อ · ติ๊กถูก · รวมคะแนนอัตโนมัติ</div>
+    <h1>กระดานให้คะแนนทีม</h1>
+  </header>
 
+  <div class="add-panel">
+    <input id="teamNameInput" type="text" placeholder="ชื่อทีม เช่น ทีม A" maxlength="40" />
+    <button id="addTeamBtn">+ เพิ่มทีม</button>
+  </div>
 
-<!-- หน้า 1 -->
+  <div class="board-scroll">
+    <table class="board">
+      <thead>
+        <tr id="headerRow">
+          <th class="team-col">ทีม</th>
+          <th class="total-col">รวม</th>
+          <th class="del-col"></th>
+        </tr>
+      </thead>
+      <tbody id="teamsBody"></tbody>
+    </table>
+  </div>
 
-<div class="page active">
-
-<div class="box">
-
-<h1>❤️ ถึงพี่แพน ❤️</h1>
-
-<p>
-เค้ามีอะไรอยากให้เท๊อดู<br>
-พร้อมยังงงง 💕
-</p>
-
-<button onclick="nextPage()">
-เปิดเซอร์ไพรส์ 💌
-</button>
-
+  <div class="summary" id="summaryBar" style="display:none;">
+    <span id="teamCountLabel"></span>
+    <span id="grandTotalLabel"></span>
+  </div>
 </div>
-
-</div>
-
-
-
-<!-- หน้า 2 -->
-
-<div class="page">
-
-<div class="box">
-
-<h1>⏳ เวลาของเรา</h1>
-
-<p>
-เค้ากับพี่แพนคบกันมาแล้ว
-</p>
-
-<div id="timer"></div>
-
-<button onclick="nextPage()">
-ไปต่อ ❤️
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- หน้า 3 -->
-
-<div class="page">
-
-<div class="box">
-
-<h1>💌 ถึงพี่แพน</h1>
-
-<p>
-ขอบคุณที่เข้ามาเป็นความสุขของเค้านะ<br><br>
-
-ทุกวันที่มีเท๊ออยู่<br>
-มันเป็นวันที่พิเศษมากเลย<br><br>
-
-<strong>
-เค้ารักเท๊อออออ ❤️
-</strong>
-
-</p>
-
-
-<button onclick="nextPage()">
-กดอีกครั้ง 💖
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- หน้า 4 -->
-
-<div class="page">
-
-<div class="box">
-
-<div class="big">
-❤️
-</div>
-
-
-<h1>
-พี่แพน
-</h1>
-
-
-<p>
-เค้าจะอยู่ข้างเท๊อ<br>
-และรักเท๊อไปนาน ๆ นะ 💕
-
-</p>
-
-
-<button onclick="firework()">
-เซอร์ไพรส์สุดท้าย 🎆
-</button>
-
-</div>
-
-</div>
-
-
 
 <script>
-
-
-let pages=document.querySelectorAll(".page");
-
-let current=0;
-
-
-function nextPage(){
-
-pages[current].classList.remove("active");
-
-current++;
-
-if(current>=pages.length)
-current=pages.length-1;
-
-
-pages[current].classList.add("active");
-
-}
-
-
-
-
-// เวลาเริ่มคบ
-
-let start=new Date("2026-04-15T00:00:00");
-
-
-function count(){
-
-let now=new Date();
-
-let diff=now-start;
-
-
-let d=Math.floor(diff/86400000);
-
-let h=Math.floor(diff/3600000)%24;
-
-let m=Math.floor(diff/60000)%60;
-
-let s=Math.floor(diff/1000)%60;
-
-
-document.getElementById("timer").innerHTML=
-`
-${d} วัน<br>
-${h} ชั่วโมง
-${m} นาที
-${s} วินาที
-`;
-
-}
-
-
-setInterval(count,1000);
-count();
-
-
-
-
-// สร้างหัวใจ
-
-function createHeart(){
-
-let h=document.createElement("div");
-
-h.className="heart";
-
-h.innerHTML="❤️";
-
-h.style.left=Math.random()*100+"%";
-
-h.style.fontSize=
-20+Math.random()*40+"px";
-
-h.style.animationDuration=
-4+Math.random()*5+"s";
-
-
-document.body.appendChild(h);
-
-
-setTimeout(()=>{
-h.remove()
-},8000);
-
-}
-
-setInterval(createHeart,300);
-
-
-
-// ดอกไม้
-
-function flower(){
-
-let f=document.createElement("div");
-
-f.className="flower";
-
-f.innerHTML="🌸";
-
-f.style.left=Math.random()*100+"%";
-
-f.style.animationDuration=
-5+Math.random()*5+"s";
-
-
-document.body.appendChild(f);
-
-
-setTimeout(()=>{
-f.remove()
-},9000);
-
-}
-
-setInterval(flower,500);
-
-
-
-// เอฟเฟกต์สุดท้าย
-
-function firework(){
-
-for(let i=0;i<30;i++){
-
-let h=document.createElement("div");
-
-h.innerHTML="💖";
-
-h.style.position="absolute";
-
-h.style.left="50%";
-
-h.style.top="50%";
-
-h.style.fontSize="40px";
-
-h.style.transform=
-`translate(${Math.random()*500-250}px,
-${Math.random()*500-250}px)`;
-
-h.style.transition="2s";
-
-document.body.appendChild(h);
-
-setTimeout(()=>{
-h.style.opacity=0;
-},100);
-
-setTimeout(()=>{
-h.remove();
-},2000);
-
-}
-
-}
-
+  const QUESTIONS = 15;
+  let teams = [];
+  let nextId = 1;
+
+  const headerRow = document.getElementById('headerRow');
+  const tbody = document.getElementById('teamsBody');
+  const nameInput = document.getElementById('teamNameInput');
+  const addBtn = document.getElementById('addTeamBtn');
+  const summaryBar = document.getElementById('summaryBar');
+  const teamCountLabel = document.getElementById('teamCountLabel');
+  const grandTotalLabel = document.getElementById('grandTotalLabel');
+
+  const totalTh = headerRow.querySelector('.total-col');
+  for(let i = 1; i <= QUESTIONS; i++){
+    const th = document.createElement('th');
+    th.textContent = i;
+    headerRow.insertBefore(th, totalTh);
+  }
+
+  function addTeam(name){
+    const trimmed = (name || '').trim() || `ทีม ${teams.length + 1}`;
+    teams.push({
+      id: nextId++,
+      name: trimmed,
+      checks: Array(QUESTIONS).fill(false)
+    });
+    render();
+  }
+
+  function removeTeam(id){
+    teams = teams.filter(t => t.id !== id);
+    render();
+  }
+
+  function toggleCheck(teamId, idx){
+    const team = teams.find(t => t.id === teamId);
+    if(!team) return;
+    team.checks[idx] = !team.checks[idx];
+    render();
+  }
+
+  function renameTeam(teamId, newName){
+    const team = teams.find(t => t.id === teamId);
+    if(!team) return;
+    team.name = newName.trim() || team.name;
+  }
+
+  function scoreOf(team){
+    return team.checks.filter(Boolean).length;
+  }
+
+  function render(){
+    tbody.innerHTML = '';
+
+    if(teams.length === 0){
+      const tr = document.createElement('tr');
+      tr.className = 'empty-row';
+      const td = document.createElement('td');
+      td.colSpan = QUESTIONS + 3;
+      td.textContent = 'ยังไม่มีทีม — เพิ่มทีมแรกได้เลย';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      summaryBar.style.display = 'none';
+      return;
+    }
+
+    teams.forEach(team => {
+      const tr = document.createElement('tr');
+
+      const teamTd = document.createElement('td');
+      teamTd.className = 'team-cell';
+      const nameEl = document.createElement('input');
+      nameEl.className = 'team-name';
+      nameEl.value = team.name;
+      nameEl.addEventListener('change', e => renameTeam(team.id, e.target.value));
+      teamTd.appendChild(nameEl);
+      tr.appendChild(teamTd);
+
+      team.checks.forEach((checked, idx) => {
+        const td = document.createElement('td');
+        td.className = 'chk-cell';
+        const box = document.createElement('div');
+        box.className = 'chk-box' + (checked ? ' on' : '');
+        box.textContent = '✓';
+        box.addEventListener('click', () => toggleCheck(team.id, idx));
+        td.appendChild(box);
+        tr.appendChild(td);
+      });
+
+      const totalTd = document.createElement('td');
+      totalTd.className = 'total-cell';
+      const scoreEl = document.createElement('span');
+      scoreEl.className = 'score-num';
+      scoreEl.textContent = scoreOf(team);
+      totalTd.appendChild(scoreEl);
+      tr.appendChild(totalTd);
+
+      const delTd = document.createElement('td');
+      delTd.className = 'del-cell';
+      const removeEl = document.createElement('button');
+      removeEl.className = 'remove-btn';
+      removeEl.textContent = '✕';
+      removeEl.title = 'ลบทีมนี้';
+      removeEl.addEventListener('click', () => removeTeam(team.id));
+      delTd.appendChild(removeEl);
+      tr.appendChild(delTd);
+
+      tbody.appendChild(tr);
+    });
+
+    const grandTotal = teams.reduce((sum, t) => sum + scoreOf(t), 0);
+    teamCountLabel.textContent = `ทีมทั้งหมด ${teams.length} ทีม`;
+    grandTotalLabel.textContent = `คะแนนรวมทุกทีม ${grandTotal} คะแนน`;
+    summaryBar.style.display = 'flex';
+  }
+
+  addBtn.addEventListener('click', () => {
+    addTeam(nameInput.value);
+    nameInput.value = '';
+    nameInput.focus();
+  });
+
+  nameInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){
+      addTeam(nameInput.value);
+      nameInput.value = '';
+    }
+  });
+
+  addTeam('ทีม 1');
+  addTeam('ทีม 2');
 </script>
-
 </body>
 </html>
